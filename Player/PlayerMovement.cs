@@ -32,14 +32,8 @@ public class NewBehaviourScript : MonoBehaviour
     }
 
     void ApplyGravity(){
-        if(_characterController.isGrounded){
-            _verticalVelocity -=gravity*Time.deltaTime;
-            Jump();
-        }else
-        {
-            _verticalVelocity -=gravity*Time.deltaTime;
-        }
-
+        _verticalVelocity -=gravity*Time.deltaTime;
+        Jump();
         _moveDir.y=_verticalVelocity*Time.deltaTime;
     }
 
