@@ -38,15 +38,35 @@ public class MouseLook : MonoBehaviour
     private float _currentRollAngle;
 
     private int _lastLookFrame;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        //lock the cursor to the center of the game window
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        LockAndUnlock();
+    }
+
+    //to lock and unlock the cursor
+    //in won't work in our unity editor
+    void LockAndUnlock(){
+        if(Input.GetKeyDown(KeyCode.Escape)){
+
+            if(Cursor.lockState == CursorLockMode.Locked){
+                // Debug.Log("Unlocked");
+                 Cursor.lockState = CursorLockMode.None;
+            }else
+            {
+                // Debug.Log("Locked");
+                 Cursor.lockState = CursorLockMode.Locked;
+                 Cursor.visible=false;
+            }
+
+        }
     }
 }
