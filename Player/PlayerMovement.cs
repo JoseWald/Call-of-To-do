@@ -25,6 +25,27 @@ public class NewBehaviourScript : MonoBehaviour
         _moveDir = new Vector3(Input.GetAxis(Axis.HORIZONTAL),0f,Input.GetAxis(Axis.VERTICAL));
         _moveDir = transform.TransformDirection(_moveDir);
         _moveDir *=speed*Time.deltaTime;
+
+        ApplyGravity();
+
         _characterController.Move(_moveDir);
+    }
+
+    void ApplyGravity(){
+        if(_characterController.isGrounded){
+            _verticalVelocity -=gravity*Time.deltaTime;
+            Jump();
+        }else
+        {
+            _verticalVelocity -=gravity*Time.deltaTime;
+        }
+
+        _moveDir.y=_verticalVelocity*Time.deltaTime;
+    }
+
+    void Jump(){
+        if(_characterController.isGrounded && Input.GetKeyDown(KeyCode.Space)){
+            _verticalVelocity=jumpForce;
+        }
     }
 }
