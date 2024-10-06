@@ -18,10 +18,13 @@ public class NewBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();   
+        Moving();   
     }
 
-    void Move(){
-
+    void Moving(){
+        _moveDir = new Vector3(Input.GetAxis(Axis.HORIZONTAL),0f,Input.GetAxis(Axis.VERTICAL));
+        _moveDir = transform.TransformDirection(_moveDir);
+        _moveDir *=speed*Time.deltaTime;
+        _characterController.Move(_moveDir);
     }
 }
