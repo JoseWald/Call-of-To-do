@@ -24,7 +24,14 @@ public class MouseLook : MonoBehaviour
     private float _smoothWeight=0.4f;
 
     [SerializeField]
-    private float _soothAngle=10f;
+    private float _smoothAngle=10f;
+
+      [SerializeField]
+    private float _rollAngle=0.1f;
+
+    
+    [SerializeField]
+    private float _rollSpeed=5f;
 
     [SerializeField]
     private Vector2 _defaultLookLimits= new Vector2(-70f , 80f );
@@ -50,6 +57,9 @@ public class MouseLook : MonoBehaviour
     void Update()
     {
         LockAndUnlock();
+        if(Cursor.lockState == CursorLockMode.Locked){
+            LookAround();
+        }
     }
 
     //to lock and unlock the cursor
@@ -68,5 +78,21 @@ public class MouseLook : MonoBehaviour
             }
 
         }
+    }
+
+    void LookAround(){
+        _currentMouseLook = new Vector2(Input.GetAxis(MouseAxis.MOUSE_Y),Input.GetAxis(MouseAxis.MOUSE_X));
+        _lookAngle.x +=_currentMouseLook.x * _sensivity * (_invert ? 1f : -1f);
+        _lookAngle.y +=_currentMouseLook.y * _sensivity;
+
+        _lookAngle.x = Mathf.Clamp(_lookAngle.x , _defaultLookLimits.x , _defaultLookLimits.y);
+
+        //causing an effect of dizziness if the rollAngle's value si too high
+        _currentRollAngle = Mathf.Lerp(_currentRollAngle ,
+                                         Input.GetAxisRaw(MouseAxis.MOUSE_X)*_rollAngle ,
+                                         _rollSpeed*Time.deltaTime );
+
+        _lookRoot.localRotation = Quaternion.Euler(_lookAngle.x , 0f , _currentRollAngle);
+        _playerRoot.localRotation = Quaternion.Euler( 0f , _lookAngle.y , 0f);       
     }
 }
