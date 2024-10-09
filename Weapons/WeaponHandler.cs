@@ -29,8 +29,10 @@ public class WeaponHandler : MonoBehaviour
     [SerializeField]
     private AudioSource _shootSound , _reloadSound;
 
+    [SerializeField]
     private WeaponFireType _fireType;
 
+    [SerializeField]
     private WeaponBulletType _bulletType;
 
     public GameObject attackPoint;
@@ -41,5 +43,34 @@ public class WeaponHandler : MonoBehaviour
  
     public  void ShootAnimation(){
         _anim.SetTrigger(AnimationTags.SHOOT_TRIGGER);
+    }
+
+    public void Aim(bool canAim){
+        _anim.SetBool(AnimationTags.AIM_PARAMETER , canAim);
+    }
+
+    void TurnOnMuzzleFlash(){
+        _muzzleFlash.SetActive(true);
+    }
+
+    void TurnOffMuzzleFlash(){
+        _muzzleFlash.SetActive(false);
+    }
+
+    void PlayShootSound(){
+        _shootSound.Play();
+    }
+
+    void PlayReloadSound(){
+        _reloadSound.Play();
+    }
+
+    void TurnOnAttackPoint(){
+        attackPoint.SetActive(true);
+    }
+
+     void TurnOffAttackPoint(){
+         if(attackPoint.activeInHierarchy)
+            attackPoint.SetActive(false);
     }
 }
