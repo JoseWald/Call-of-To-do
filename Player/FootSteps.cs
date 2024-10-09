@@ -21,7 +21,7 @@ public class FootSteps : MonoBehaviour
   
     void Awake(){
         _footStepSound = GetComponent<AudioSource>();
-        _characterController = GetComponent<CharacterController>();
+        _characterController = GetComponentInParent<CharacterController>();
     }
 
     // Update is called once per frame
@@ -41,13 +41,13 @@ public class FootSteps : MonoBehaviour
             if(_accumulatedDistance > stepDistance){
                 _footStepSound.volume = Random.Range(volumeMIN , volumeMAX);
                 _footStepSound.clip = _footStepClip[Random.Range(0,_footStepClip.Length)];
-                _footStepSound.play(); 
+                _footStepSound.Play(); 
                 _accumulatedDistance =0f;
             }
 
         }else
         {
-            _accumulatedDistance;
+            _accumulatedDistance=0f;
         }
     }
 }
