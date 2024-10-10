@@ -29,11 +29,11 @@ public class WeaponHandler : MonoBehaviour
     [SerializeField]
     private AudioSource _shootSound , _reloadSound;
 
-    [SerializeField]
-    private WeaponFireType _fireType;
+    
+    public WeaponFireType fireType;
 
-    [SerializeField]
-    private WeaponBulletType _bulletType;
+
+    public  WeaponBulletType bulletType;
 
     public GameObject attackPoint;
 
