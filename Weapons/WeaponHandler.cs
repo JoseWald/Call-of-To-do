@@ -21,7 +21,7 @@ public class WeaponHandler : MonoBehaviour
 {
 
     private Animator _anim;
-    public WeaponAim _weaponAim;
+    public WeaponAim weaponAim;
 
     [SerializeField]
     private GameObject _muzzleFlash;
