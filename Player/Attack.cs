@@ -47,7 +47,8 @@ public class Attack : MonoBehaviour
             if(Input.GetMouseButton(0) && Time.time>_nextTimetoFire/1.5 ){
                 _nextTimetoFire= Time.time + 1f/fireRate;
 
-                _weaponManager.GetSelectedWeapon().ShootAnimation();            
+                _weaponManager.GetSelectedWeapon().ShootAnimation(); 
+                BulletFired();           
             }
 
         }else
@@ -61,7 +62,7 @@ public class Attack : MonoBehaviour
                  if(_weaponManager.GetSelectedWeapon().bulletType ==WeaponBulletType.BULLET){
                      _weaponManager.GetSelectedWeapon().ShootAnimation(); 
                      
-                    //BulletFired();
+                    BulletFired();
                 }
 
             }
@@ -82,5 +83,12 @@ public class Attack : MonoBehaviour
         }
 
     
+    }//ZoomInOut()
+
+    void BulletFired(){
+        RaycastHit hit;
+        if(Physics.Raycast(_mainCam.transform.position,_mainCam.transform.forward, out hit)){
+            Debug.Log("WE HIT"+ hit.transform.gameObject.name);
+        }
     }
 }
