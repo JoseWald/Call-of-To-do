@@ -88,7 +88,7 @@ public class Attack : MonoBehaviour
     void BulletFired(){
         RaycastHit hit;
         if(Physics.Raycast(_mainCam.transform.position,_mainCam.transform.forward, out hit)){
-            Debug.Log("WE HIT"+ hit.transform.gameObject.name);
+            
         }
     }
 }
