@@ -46,9 +46,58 @@ public class Health : MonoBehaviour
         }
 
         if(isZombie){
-            if(_enemyController.EnemyState = EnemyState.PATROL){
-                _enemyController.chaseDistance = 50f;
+            if(_enemyController.EnemyState == EnemyState.PATROL){
+                //Debug.Log("Zombie Hitted");
+                _enemyController.chaseDistance =100f;
             }
         }
+
+        if(health<0){
+            PlayerDie();
+            _isDead=true;
+        }
+        Debug.Log("HP="+health);
+    }//GetHurt()
+
+    void PlayerDie(){
+        if(isZombie){
+            GetComponent<Animator>().enabled=false;
+            GetComponent<BoxCollider>().isTrigger=false;
+            GetComponent<Rigidbody>().AddTorque(-transform.forward * 50f);
+
+            _enemyController.enabled=false;
+            _navAgent.enabled=false;
+            _enemyAnim.enabled=false;
+
+            //StartCoroutine()
+
+            //spawn more enemy
+        }
+        if(isPlayer){
+            GameObject[] enemies=GameObject.FindGameObjectsWithTag(Tags.ENEMY_TAG);
+            for(int i=0 ; i<enemies.Length ; i++){
+                enemies[i].GetComponent<EnemyController>().enabled=false;
+            }
+
+            //the enemy should stop spawning
+
+            GetComponent<PlayerMovement>().enabled=false;
+            GetComponent<Attack>().enabled=false;
+            GetComponent<WeaponManager>().GetSelectedWeapon().gameObject.SetActive(false);
+        }
+
+        if(tag ==Tags.PLAYER_TAG){
+            Invoke("RestartGame",3f);
+        }else{
+            Invoke("TurnOffGameObject",3f);
+        }
+    }//PlayerDie()
+
+    void RestartGame(){
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
+    }
+
+    void TurnOffGameObject(){
+        gameObject.SetActive(false);
     }
 }

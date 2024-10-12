@@ -85,10 +85,20 @@ public class Attack : MonoBehaviour
     
     }//ZoomInOut()
 
-    void BulletFired(){
-        RaycastHit hit;
-        if(Physics.Raycast(_mainCam.transform.position,_mainCam.transform.forward, out hit)){
-            
-        }
-    }
+    void BulletFired() {
+
+           
+           RaycastHit hit;
+           
+            if(Physics.Raycast(_mainCam.transform.position, _mainCam.transform.forward, out hit , Mathf.Infinity)) {
+                 Debug.Log(hit.collider.gameObject.name);
+                 Debug.DrawRay(_mainCam.transform.position , _mainCam.transform.forward ,Color.yellow);
+                if(hit.collider.gameObject.name == "Cannibal") {
+                    Debug.Log("Enemy attacked");
+                    hit.transform.GetComponent<Health>().GetHurt(damage);
+                }
+
+            }
+
+    } // bullet fired
 }

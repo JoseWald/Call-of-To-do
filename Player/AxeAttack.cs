@@ -18,8 +18,8 @@ public class AxeAttack : MonoBehaviour
         Collider[] hits=Physics.OverlapSphere(transform.position , radius , layerMask);
 
         if(hits.Length > 0){
-            Debug.Log("We touched the"+ hits[0].gameObject.tag);
-
+           // Debug.Log("We touched the"+ hits[0].gameObject.tag);
+           hits[0].gameObject.GetComponent<Health>().GetHurt(damage);
             gameObject.SetActive(false);
         }
     }
