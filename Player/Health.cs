@@ -15,12 +15,16 @@ public class Health : MonoBehaviour
     private bool _isDead=false;
 
     public bool isPlayer , isZombie;
+
+    private EnemyAudio _enemyAudio;
  
     void Awake(){
         if(isZombie){
             _enemyAnim=GetComponent<EnemyAnimator>();
             _enemyController=GetComponent<EnemyController>();
             _navAgent=GetComponent<NavMeshAgent>();
+
+            _enemyAudio = GetComponentInChildren<EnemyAudio>();
         }
 
         if(isPlayer){
@@ -69,7 +73,7 @@ public class Health : MonoBehaviour
             _navAgent.enabled=false;
             _enemyAnim.enabled=false;
 
-            //StartCoroutine()
+            StartCoroutine(DeadSound());
 
             //spawn more enemy
         }
@@ -99,5 +103,10 @@ public class Health : MonoBehaviour
 
     void TurnOffGameObject(){
         gameObject.SetActive(false);
+    }
+
+    IEnumerator DeadSound(){
+        yield return new WaitForSeconds(0.3f);
+        _enemyAudio.PlayDeadSound();
     }
 }
