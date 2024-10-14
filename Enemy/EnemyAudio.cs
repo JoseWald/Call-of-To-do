@@ -4,15 +4,32 @@ using UnityEngine;
 
 public class EnemyAudio : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+
+    private AudioSource _audioSource;
+
+    [SerializeField]
+    private AudioClip _screamClip , _dieClip;
+
+    [SerializeField]
+    private AudioClip[] _attackClip;
+   
+    void Awake(){
+        _audioSource = GetComponent<AudioSource>();
+
+    }
+    
+    public void PlayScreamSound(){
+        _audioSource.clip = _screamClip;
+        _audioSource.Play();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void PlayAttackSound(){
+        _audioSource.clip =_attackClip[Random.Range(0 , _attackClip.Length)] ;
+        _audioSource.Play();
+    }
+
+    public void PlayDeadSound(){
+        _audioSource.clip = _dieClip;
+        _audioSource.Play();
     }
 }
