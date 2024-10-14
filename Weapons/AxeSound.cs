@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class AxeSound : MonoBehaviour
 {
+    [SerializeField]
+    private AudioSource _audioSource;
+
+    [SerializeField]
+    private AudioClip[] _audioClip;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +19,10 @@ public class AxeSound : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void AxeNoise(){
+        _audioSource.clip= _audioClip[Random.Range( 0 , _audioClip.Length)];
+        _audioSource.Play();
     }
 }
